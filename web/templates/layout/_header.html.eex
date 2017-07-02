@@ -10,7 +10,7 @@
       </button>
 
       <a class="navbar-brand text-uppercase" href="#">
-        My contact
+        CRM
       </a>
       <form action="/stories/search" class="navbar-form navbar-right" method="get" role="search">
         <div class="input-group">
@@ -35,7 +35,7 @@
               Anthony <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="#">Logout</a></li>
+            <li><form action="/sessions" class="link" method="post"><input name="_method" type="hidden" value="delete"><input name="_csrf_token" type="hidden" value="JSNkJjd3WRZ8IVs6AnE8eQd2CzcsNgAArwUgZAktNVkp2EHR0FlTAg=="><a data-submit="parent" href="#" rel="nofollow">Sign Out</a></form></li>
           </ul>
         </li>
       </ul>
