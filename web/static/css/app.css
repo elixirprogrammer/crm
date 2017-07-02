@@ -1,1 +1,56 @@
-/* This file is for your main application css. */
+body {
+	padding-top: 70px;
+	background: #eee;
+}
+
+.navbar {
+	-moz-box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
+	-webkit-box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
+	box-shadow: rgba(0, 0, 0, 0.09) 0 2px 0;
+}
+
+.navbar .navbar-brand {
+	font-weight: bold;
+	letter-spacing: -1px;
+	font-size: 20px;
+	color: #dd5638;
+}
+
+.navbar-right {
+	margin-right: 0;
+}
+
+.table tbody>tr>td.middle {
+	vertical-align: middle;
+}
+
+.media {
+	padding: 10px 0;
+}
+
+.media img, .fileinput .thumbnail, .thumbnail img {
+	border-radius: 50%;
+}
+
+.media-left {
+	padding: 0 20px;
+}
+
+.media-heading {
+	color: #dd5638;
+	margin-bottom: 10px;
+}
+
+.media-body {
+	padding-top: 15px;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
