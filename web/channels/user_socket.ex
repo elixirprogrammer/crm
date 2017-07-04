@@ -1,5 +1,6 @@
 defmodule Crm.UserSocket do
   use Phoenix.Socket
+  use Drab.Socket
 
   ## Channels
   # channel "room:*", Crm.RoomChannel

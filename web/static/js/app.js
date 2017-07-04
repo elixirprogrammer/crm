@@ -13,6 +13,13 @@
 // to also remove its path from "config.paths.watched".
 import "phoenix_html"
 
+$("#add-new-group").hide();
+$('#add-group-btn').click(function () {
+  $("#add-new-group").slideToggle(function() {
+    $('#new_group').focus();
+  });
+  return false;
+});
 // Import local files
 //
 // Local files can be imported directly using relative

@@ -27,10 +27,10 @@
             </form>
           </li>
           <li>
-            <a href="form.html" class="btn btn-default">
+            <%= link to: contact_path(@conn, :new), class: "btn btn-default" do %>
               <i class="glyphicon glyphicon-plus"></i>
               Add Contact
-            </a>
+            <% end %>
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
