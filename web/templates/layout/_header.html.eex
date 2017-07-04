@@ -10,9 +10,7 @@
           <span class="icon-bar"></span>
         </button>
 
-        <a class="navbar-brand text-uppercase" href="#">
-          CRM
-        </a>
+        <%= link "CRM", to: contact_path(@conn, :index), class: "navbar-brand" %>
       </div>
       <!-- /.navbar-header -->
       <div class="collapse navbar-collapse" id="navbar-collapse">
