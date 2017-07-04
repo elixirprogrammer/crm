@@ -1,0 +1,3 @@
+<h1>New User</h1>
+<%= render "_form.html", changeset: @changeset,
+                        action: user_path(@conn, :create) %>

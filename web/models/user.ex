@@ -1,4 +1,4 @@
-defmodule Crm.Users do
+defmodule Crm.User do
   use Crm.Web, :model
 
   schema "users" do
@@ -21,7 +21,7 @@ defmodule Crm.Users do
     |> cast(params, [:name, :username, :password, :password_confirmation])
     |> validate_required([:name, :username, :password, :password_confirmation])
     |> validate_length(:username, min: 5, max: 20)
-    |> validate_format(:username, ~r/^[a-zA-Z0-9_.-]*$/, message: "Please use letters and numbers without space(only characters allowed _ . -)")    
+    |> validate_format(:username, ~r/^[a-zA-Z0-9_.-]*$/, message: "Please use letters and numbers without space(only characters allowed _ . -)")
     |> unique_constraint(:username)
   end
 end
