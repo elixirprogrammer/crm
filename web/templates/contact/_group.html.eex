@@ -1,0 +1,4 @@
+<%= link to: contact_path(@conn, :groups, @group), class: active_group?(@conn, @group.id) do %>
+  <%= @group.name %>
+  <span class="badge"><%= length(@group.contacts) %></span>
+<% end %>

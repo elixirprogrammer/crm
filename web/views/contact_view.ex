@@ -14,5 +14,21 @@ defmodule Crm.ContactView do
     |> String.strip
     |> String.downcase
     |> md5()
-end
+  end
+
+  def active_group?(conn, group_id) do
+    if conn.params["id"] == Integer.to_string(group_id) do
+      "list-group-item active"
+    else
+      "list-group-item"
+    end
+  end
+
+  def default_group_class(conn) do
+    if conn.request_path == contact_path(conn, :index) do
+      "list-group-item active"
+    else
+      "list-group-item"
+    end
+  end
 end

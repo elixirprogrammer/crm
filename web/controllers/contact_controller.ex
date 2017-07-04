@@ -7,12 +7,22 @@ defmodule Crm.ContactController do
   plug :assign_user_id_to_session when action in [:new]
 
   def index(conn, _params) do
-    contacts = Repo.all(Contact) |> Repo.preload(:contact_group)
-    render conn, :index, contacts: contacts
+    groups = ContactGroup.all(conn.assigns.current_user.id)
+    contacts = Contact.all(conn.assigns.current_user.id)
+
+    render conn, :index, contacts: contacts, groups: groups
+  end
+
+  def groups(conn, params) do
+    group_id = String.to_integer(params["id"])
+    groups = ContactGroup.all(conn.assigns.current_user.id)
+    contacts = Contact.all_contacts_for_group(group_id)
+
+    render conn, :groups, contacts: contacts, groups: groups
   end
 
   def new(conn, _params) do
-    groups = Repo.all(ContactGroup)
+    groups = ContactGroup.all(conn.assigns.current_user.id)
     changeset = Contact.changeset(%Contact{})
     render conn, :new, changeset: changeset, groups: groups
   end

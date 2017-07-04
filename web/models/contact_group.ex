@@ -1,5 +1,6 @@
 defmodule Crm.ContactGroup do
   use Crm.Web, :model
+  alias Crm.{Repo, ContactGroup}
 
   schema "contact_groups" do
     field :name, :string
@@ -17,4 +18,13 @@ defmodule Crm.ContactGroup do
     |> cast(params, [:name])
     |> validate_required([:name])
   end
+
+  def all(user_id) do
+    groups = Repo.all(
+      from c in ContactGroup,
+      where: c.user_id == ^user_id,
+      preload: :contacts
+    )
+  end
+
 end

@@ -1,6 +1,8 @@
 defmodule Crm.Contact do
   use Crm.Web, :model
 
+  alias Crm.{Repo, Contact}
+
   schema "contacts" do
     field :name, :string
     field :company, :string
@@ -20,5 +22,19 @@ defmodule Crm.Contact do
     struct
     |> cast(params, [:name, :company, :email, :phone, :address])
     |> validate_required([:name, :email, :phone])
+  end
+
+  def all(user_id) do
+    Contact
+    |> where(user_id: ^user_id)
+    |> preload(:contact_group)
+    |> Repo.all
+  end
+
+  def all_contacts_for_group(group_id) do
+    Contact
+    |> where(contact_group_id: ^group_id)
+    |> preload(:contact_group)
+    |> Repo.all
   end
 end

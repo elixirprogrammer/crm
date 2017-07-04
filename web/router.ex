@@ -27,6 +27,7 @@ defmodule Crm.Router do
 
     resources "/contacts", ContactController
     resources "/users", UserController, only: [:edit, :update]
+    get "/groups/:id", ContactController, :groups
   end
 
   # Other scopes may use custom stacks.
