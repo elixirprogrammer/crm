@@ -24,7 +24,7 @@ defmodule Crm.ContactView do
     end
   end
 
-  def default_group_class(conn) do
+  def active_group?(conn) do
     if conn.request_path == contact_path(conn, :index) do
       "list-group-item active"
     else
