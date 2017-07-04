@@ -7,6 +7,7 @@ defmodule Crm.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Crm.Auth, repo: Crm.Repo
   end
 
   pipeline :api do
@@ -18,6 +19,14 @@ defmodule Crm.Router do
 
     get "/", PageController, :index
     resources "/users", UserController, only: [:new, :create]
+    resources "/sessions", SessionController, only: [:new, :create, :delete]
+  end
+
+  scope "/", Crm do
+    pipe_through [:browser, :authenticate_user]
+
+    resources "/contacts", ContactController
+    resources "/users", UserController, only: [:edit, :update]
   end
 
   # Other scopes may use custom stacks.

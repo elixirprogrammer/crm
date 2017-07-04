@@ -38,8 +38,8 @@
                 Anthony <span class="caret"></span>
             </a>
             <ul class="dropdown-menu">
-              <li><a class="text-center" href="">Profile</a></li>
-              <li><form action="/sessions" class="link" method="post"><input name="_method" type="hidden" value="delete"><input name="_csrf_token" type="hidden" value="JSNkJjd3WRZ8IVs6AnE8eQd2CzcsNgAArwUgZAktNVkp2EHR0FlTAg=="><button>Sign Out</button></form></li>
+              <li><%= link "Profile", to: user_path(@conn, :edit, @current_user), class: "text-center" %></li>
+              <li><%= button "Log out", to: session_path(@conn, :delete, @current_user), method: "delete" %></li>
             </ul>
           </li>
         </ul>

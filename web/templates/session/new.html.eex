@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col col-md-6 col-md-offset-3">
+    <div class="well well">
+      <h1 class="text-center">Login</h1>
+
+      <%= form_for @conn, session_path(@conn, :create), [as: :session], fn f -> %>
+        <div class="form-group">
+          <div class="input-group input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            <%= text_input f, :username, placeholder: "Username", class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            <%= password_input f, :password, placeholder: "Password", class: "form-control" %>
+          </div>
+        </div>
+
+        <%= submit "Log in", class: "btn btn-primary" %>
+      <% end %>
+
+      <%= link "Register An Account", to: user_path(@conn, :new), class: "pull-right" %>
+    </div>
+  </div>
+</div>

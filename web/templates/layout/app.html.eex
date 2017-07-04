@@ -12,10 +12,25 @@
   </head>
 
   <body>
-    <%= render "_header.html" %>
-
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+    <%= if @current_user do %>
+      <%= render "_header.html", conn: @conn, current_user: @current_user %>
+    <% end %>
+      <%= if get_flash(@conn, :info) do %>
+        <p class="alert alert-info text-center" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <%= get_flash(@conn, :info) %>
+        </p>
+      <% end %>
+      <%= if get_flash(@conn, :error) do %>
+        <p class="alert alert-danger text-center" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <%= get_flash(@conn, :error) %>
+        </p>
+      <% end %>
     <div class="container">
       <main role="main">
         <%= render @view_module, @view_template, assigns %>

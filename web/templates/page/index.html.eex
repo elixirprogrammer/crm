@@ -1,0 +1,6 @@
+<div class="jumbotron text-center">
+  <h2>Welcome to CRM!</h2>
+  <p class="lead">Don't lose your contact information and manage them with ease.</p>
+  <%= link "Register", to: user_path(@conn, :new), class: "btn btn-warning btn-lg" %>
+  <%= link "Log in", to: session_path(@conn, :new), class: "btn btn-primary btn-lg" %>
+</div>

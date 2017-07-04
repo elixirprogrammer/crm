@@ -58,6 +58,8 @@ defmodule Crm.Web do
   def router do
     quote do
       use Phoenix.Router
+
+      import Crm.Auth, only: [authenticate_user: 2]
     end
   end
 
