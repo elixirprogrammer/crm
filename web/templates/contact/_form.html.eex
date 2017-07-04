@@ -1,0 +1,78 @@
+<div class="col-md-9">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Add Contact</strong>
+    </div>
+    <div class="panel-body">
+      <div class="form-horizontal">
+        <div class="row">
+          <div class="col-md-8">
+            <%= form_for @changeset, @action, fn f -> %>
+              <%= if @changeset.action do %>
+                <div class="alert alert-danger">
+                <p>Oops, something went wrong! Please check the errors below.</p>
+                </div>
+              <% end %>
+              <div class="form-group">
+                <label for="name" class="control-label col-md-3">Name</label>
+                <div class="col-md-8">
+                  <%= text_input f, :name, class: "form-control" %>
+                  <%= error_tag f, :name %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="company" class="control-label col-md-3">Company</label>
+                <div class="col-md-8">
+                  <%= text_input f, :company, class: "form-control" %>
+                  <%= error_tag f, :company %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="control-label col-md-3">Email</label>
+                <div class="col-md-8">
+                  <%= text_input f, :email, class: "form-control" %>
+                  <%= error_tag f, :email %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="phone" class="control-label col-md-3">Phone</label>
+                <div class="col-md-8">
+                  <%= text_input f, :phone, class: "form-control" %>
+                  <%= error_tag f, :phone %>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="name" class="control-label col-md-3">Address</label>
+                <div class="col-md-8">
+                  <%= textarea f, :address, rows: 3, class: "form-control" %>
+                  <%= error_tag f, :address %>
+                </div>
+              </div>
+
+              <%= render "_group_form.html", f: f, groups: @groups %>
+          </div>
+          <div class="col-md-4">
+            <img class="img-circle" src="http://placehold.it/100x100" alt="Photo">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+              <%= submit "Save", class: "btn btn-primary" %>
+              <%= link "Cancel", to: contact_path(@conn, :index), class: "btn btn-default" %>
+            <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
