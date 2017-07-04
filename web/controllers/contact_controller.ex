@@ -7,7 +7,8 @@ defmodule Crm.ContactController do
   plug :assign_user_id_to_session when action in [:new]
 
   def index(conn, _params) do
-    render conn, :index
+    contacts = Repo.all(Contact) |> Repo.preload(:contact_group)
+    render conn, :index, contacts: contacts
   end
 
   def new(conn, _params) do

@@ -18,7 +18,7 @@ defmodule Crm.Contact do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :email, :phone])
+    |> cast(params, [:name, :company, :email, :phone, :address])
     |> validate_required([:name, :email, :phone])
   end
 end

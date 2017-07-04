@@ -9,34 +9,9 @@
   </div><!-- /.col-md-3 -->
 
   <div class="col-md-9">
-  <div class="row">
-    <div class="col-md-4">
-      <div class="thumbnail">
-        <a href="#">
-          <img class="img-circle" src="https://secure.gravatar.com/avatar/e4f24febe57deaa288e64ed2a29dfb29?s=100&default=mm" alt="...">
-        </a>
-        <div class="caption text-center">
-          <a href=""><h4>Contact 1</h4></a>
-          <strong>Job</strong><br>
-          <strong>Twitter, Inc</strong><br>
-          <h6>contact1@sample.com</h6>
-          <h6>555-555-5555</h6>
-          <h6> 325 7th street</h6>
-          <div class="text-center">
-            <a href="#" class="btn btn-circle btn-default btn-xs" title="View">
-              <i class="glyphicon glyphicon-eye-open"></i>
-            </a>
-            <a href="#" class="btn btn-circle btn-default btn-xs" title="Edit">
-              <i class="glyphicon glyphicon-edit"></i>
-            </a>
-            <a href="#" class="btn btn-circle btn-danger btn-xs" title="Delete">
-              <i class="glyphicon glyphicon-remove"></i>
-            </a>
-          </div>
-        </div>
-      </div>
+    <div class="row">
+      <%= render_many @contacts, Crm.ContactView, "_contact.html", conn: @conn%>
     </div>
-  </div>
 
     <div class="text-center">
       <nav>
