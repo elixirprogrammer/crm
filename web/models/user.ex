@@ -5,6 +5,8 @@ defmodule Crm.Users do
     field :name, :string
     field :username, :string
     field :password_hash, :string
+    field :password, :string, virtual: true
+    field :password_confirmation, :string, virtual: true
     has_many :contacts, Crm.Contact
     has_many :contact_groups, Crm.ContactGroup
 
@@ -16,7 +18,7 @@ defmodule Crm.Users do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :username, :password_hash])
-    |> validate_required([:name, :username, :password_hash])
+    |> cast(params, [:name, :username, :password, :password_confirmation])
+    |> validate_required([:name, :username, :password, :password_confirmation])
   end
 end
