@@ -9,6 +9,7 @@ defmodule Crm.User do
     field :password_confirmation, :string, virtual: true
     has_many :contacts, Crm.Contact
     has_many :contact_groups, Crm.ContactGroup
+    has_many :notes, Crm.Note
 
     timestamps()
   end

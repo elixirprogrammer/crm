@@ -9,7 +9,7 @@ defmodule Crm.Repo.Migrations.CreateContacts do
       add :phone, :string
       add :address, :text
       add :user_id, references(:users, on_delete: :delete_all)
-      add :contact_group_id, references(:contact_groups, on_delete_all: :delete)
+      add :contact_group_id, references(:contact_groups, on_delete: :delete_all)
 
       timestamps()
     end

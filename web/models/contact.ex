@@ -11,6 +11,7 @@ defmodule Crm.Contact do
     field :address, :string
     belongs_to :user, Crm.User
     belongs_to :contact_group, Crm.ContactGroup
+    has_many :notes, Crm.Note
 
     timestamps()
   end
