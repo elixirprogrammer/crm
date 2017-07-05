@@ -1,0 +1,11 @@
+<article class="list-group-item">
+  <%= @note.body %>
+  <div class="text-center">
+    <button drab-click="edit_contact_note" class="btn btn-circle btn-default btn-xs">
+      <i class="glyphicon glyphicon-edit"></i>
+    </button>
+    <button drab-click="delete_contact_note" class="btn btn-circle btn-danger btn-xs">
+      <i class="glyphicon glyphicon-remove"></i>
+    </button>
+  </div>
+</article>

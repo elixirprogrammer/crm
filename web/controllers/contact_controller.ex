@@ -2,7 +2,7 @@ defmodule Crm.ContactController do
   use Crm.Web, :controller
   use Drab.Controller
 
-  alias Crm.{Contact, ContactGroup}
+  alias Crm.{Contact, ContactGroup, Note}
 
   plug :assign_user_id_to_session when action in [:new]
 
@@ -20,10 +20,19 @@ defmodule Crm.ContactController do
     )
   end
 
-  def show(conn, %{"id" => id}) do
+  def show(conn, params) do
+    conn = put_session(conn, :contact_id, String.to_integer(params["id"]))
+    {notes, kerosene} = Note.all(params["id"], params)
     groups = ContactGroup.all(conn.assigns.current_user.id)
-    contact = Repo.get!(Contact, id) |> Repo.preload(:contact_group)
-    render(conn, :show, contact: contact, groups: groups)
+    contact = Repo.get!(
+      Contact, params["id"]
+    ) |> Repo.preload(:contact_group)
+
+    render(conn, :show,
+      contact: contact,
+      groups: groups,
+      notes: notes,
+      kerosene: kerosene)
   end
 
   def search(conn, params) do
