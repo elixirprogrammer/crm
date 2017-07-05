@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-md-3">
+    <div class="list-group">
+      <%= link to: contact_path(@conn, :index), class: active_group?(@conn) do %>
+        All Contacts
+        <span class="badge"><%= length(@groups) %></span>
+      <% end %>
+      <%= render_many @groups, Crm.ContactView, "_group.html", as: :group, conn: @conn, user_id: @current_user.id %>
+    </div>
+  </div><!-- /.col-md-3 -->
+
+  <%= render "_show_contact.html", conn: @conn, contact: @contact %>
+
+  <div class="col-md-5">
+    <div class="list-group">
+      <article class="list-group-item">
+        Bicycle rights next level lomo hashtag, migas jean shorts post-ironic photo booth gentrify letterpress chia plaid roof party knausgaard. Sustainable roof party poke distillery pour-over chia PBR&B williamsburg yuccie hell of venmo fam offal synth DIY.
+        <div class="text-center">
+          <%= link to: contact_path(@conn, :edit, @contact), class: "btn btn-circle btn-default btn-xs", title: "Edit" do %>
+            <i class="glyphicon glyphicon-edit"></i>
+          <% end %>
+          <%= button to: contact_path(@conn, :delete, @contact), method: :delete, class: "btn btn-circle btn-danger btn-xs", title: "Delete" do %>
+            <i class="glyphicon glyphicon-remove"></i>
+          <% end %>
+        </div>
+      </article>
+    </div>
+  </div><!-- /.col-md-5 -->
+</div>

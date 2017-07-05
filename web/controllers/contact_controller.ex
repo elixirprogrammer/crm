@@ -20,6 +20,12 @@ defmodule Crm.ContactController do
     )
   end
 
+  def show(conn, %{"id" => id}) do
+    groups = ContactGroup.all(conn.assigns.current_user.id)
+    contact = Repo.get!(Contact, id) |> Repo.preload(:contact_group)
+    render(conn, :show, contact: contact, groups: groups)
+  end
+
   def search(conn, params) do
     groups = ContactGroup.all(conn.assigns.current_user.id)
     {contacts, kerosene} = Contact.search(

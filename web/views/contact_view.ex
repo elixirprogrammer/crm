@@ -18,7 +18,8 @@ defmodule Crm.ContactView do
   end
 
   def active_group?(conn, group_id) do
-    if conn.params["id"] == Integer.to_string(group_id) do
+    group = Integer.to_string(group_id)
+    if conn.request_path == contact_path(conn, :groups, group) do
       "list-group-item active"
     else
       "list-group-item"

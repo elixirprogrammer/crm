@@ -1,0 +1,27 @@
+<div class="col-md-4">
+  <div class="thumbnail">
+    <%= link to: contact_path(@conn, :show, @contact) do %>
+      <%= gravatar_for(@contact.name, @contact.email, 100) %>
+    <% end %>
+    <div class="caption text-center">
+      <h4><%= @contact.name %></h4>
+      <strong><%= @contact.contact_group.name %></strong><br>
+      <strong><%= @contact.company %></strong><br>
+      <h6><%= @contact.email %></h6>
+      <h6><%= @contact.phone %></h6>
+      <h6><%= @contact.address %></h6>
+      <div class="text-center">
+        <button drab-click="add_contact_note" class="btn btn-default btn-sm">
+          <i class="glyphicon glyphicon-plus"></i>
+          Add Note
+        </button>
+        <%= link to: contact_path(@conn, :edit, @contact), class: "btn btn-circle btn-default btn-xs", title: "Edit" do %>
+          <i class="glyphicon glyphicon-edit"></i>
+        <% end %>
+        <%= button to: contact_path(@conn, :delete, @contact), method: :delete, class: "btn btn-circle btn-danger btn-xs", title: "Delete" do %>
+          <i class="glyphicon glyphicon-remove"></i>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -19,4 +19,12 @@ defmodule Crm.ContactCommander do
         socket |> exec_js("alert('The group name cannot be empty')")
     end
   end
+
+  def add_contact_note(socket, sender) do
+    form = "<textarea class='form-control' name='note' rows='6'></textarea>"
+    note = case socket |> alert("Add Note", form, buttons: [ok: "Save", cancel: "Cancel"]) do
+      { :ok, params } -> "#{params["note"]}"
+      { :cancel, _ }  -> "anonymous"
+    end
+  end
 end
