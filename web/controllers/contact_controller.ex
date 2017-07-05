@@ -20,6 +20,21 @@ defmodule Crm.ContactController do
     )
   end
 
+  def search(conn, params) do
+    groups = ContactGroup.all(conn.assigns.current_user.id)
+    {contacts, kerosene} = Contact.search(
+      conn.assigns.current_user.id,
+      params["q"],
+      params
+    )
+
+    render(conn, :search,
+      contacts: contacts,
+      groups: groups,
+      kerosene: kerosene
+    )
+  end
+
   def groups(conn, params) do
     group_id = String.to_integer(params["id"])
     groups = ContactGroup.all(conn.assigns.current_user.id)

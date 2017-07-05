@@ -37,4 +37,12 @@ defmodule Crm.Contact do
     |> preload(:contact_group)
     |> Repo.paginate(params)
   end
+
+  def search(user_id, search_params, params) do
+    from(c in Contact,
+      where: c.user_id == ^user_id and ilike(c.name, ^"%#{search_params}%"),
+      preload: :contact_group
+    )
+    |> Repo.paginate(params)
+  end
 end

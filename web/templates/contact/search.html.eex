@@ -11,11 +11,15 @@
 
   <div class="col-md-9">
     <div class="row">
-      <%= render_many @contacts, Crm.ContactView, "_contact.html", conn: @conn%>
+      <%= if @contacts == [] do %>
+        <h1>Nothing was found with that name</h1>
+      <% else %>
+        <%= render_many @contacts, Crm.ContactView, "_contact.html", conn: @conn%>
     </div>
 
     <div class="text-center">
-      <%= paginate @conn, @kerosene %>
+        <%= paginate @conn, @kerosene %>
     </div>
+      <% end %>
   </div>
 </div>

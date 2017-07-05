@@ -9,6 +9,6 @@
 </div><!-- /.col-md-3 -->
 
 <%= render "_form.html", changeset: @changeset,
-                        action: contact_path(@conn, :create),
-                        groups: @groups,
-                        conn: @conn %>
+                         action: contact_path(@conn, :create),
+                         groups: @groups,
+                         conn: @conn %>
