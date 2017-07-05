@@ -64,4 +64,19 @@ defmodule Crm.ContactCommander do
         socket |> exec_js("alert('The note cannot be empty')")
     end
   end
+
+  def delete_contact_note(socket, sender) do
+    note_id = socket |> select(data: "noteId", from: this(sender))
+    note = Repo.get!(Note, note_id)
+    button = case socket |> alert("Message", "Are you Sure?", buttons: [ok: "YES", cancel: "No"]) do
+      { :ok, params } -> delete_note(socket, note)
+      { :cancel, _ }  -> "anonymous"
+    end
+  end
+
+  def delete_note(socket, note) do
+    Repo.delete!(note)
+    socket
+    socket |> delete("#article_note_id_#{note.id}")
+  end
 end

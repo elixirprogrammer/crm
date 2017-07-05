@@ -1,4 +1,4 @@
-<article class="list-group-item">
+<article id="article_note_id_<%= @note.id %>" class="list-group-item">
   <div id="note_id_<%= @note.id %>">
     <%= @note.body %>
   </div>
