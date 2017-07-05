@@ -1,5 +1,6 @@
 defmodule Crm.ContactView do
   use Crm.Web, :view
+  import Kerosene.HTML
 
   def gravatar_for(name, email, size \\ 80) do
     gravatar_id = hash(email)

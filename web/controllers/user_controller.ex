@@ -20,7 +20,7 @@ defmodule Crm.UserController do
     case Repo.update(changeset) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "Account updated successfully.")
+        |> put_flash(:info, "#{user.name} updated successfully.")
         |> redirect(to: contact_path(conn, :index))
       {:error, changeset} ->
         render(conn, "edit.html", user: user, changeset: changeset)

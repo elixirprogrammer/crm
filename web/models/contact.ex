@@ -24,17 +24,17 @@ defmodule Crm.Contact do
     |> validate_required([:name, :email, :phone])
   end
 
-  def all(user_id) do
+  def all(user_id, params) do
     Contact
     |> where(user_id: ^user_id)
     |> preload(:contact_group)
-    |> Repo.all
+    |> Repo.paginate(params)
   end
 
-  def all_contacts_for_group(group_id) do
+  def all_contacts_for_group(group_id, params) do
     Contact
     |> where(contact_group_id: ^group_id)
     |> preload(:contact_group)
-    |> Repo.all
+    |> Repo.paginate(params)
   end
 end

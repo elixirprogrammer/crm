@@ -6,19 +6,33 @@ defmodule Crm.ContactController do
 
   plug :assign_user_id_to_session when action in [:new]
 
-  def index(conn, _params) do
+  def index(conn, params) do
     groups = ContactGroup.all(conn.assigns.current_user.id)
-    contacts = Contact.all(conn.assigns.current_user.id)
+    {contacts, kerosene} = Contact.all(
+      conn.assigns.current_user.id,
+      params
+    )
 
-    render conn, :index, contacts: contacts, groups: groups
+    render(conn, :index,
+      contacts: contacts,
+      groups: groups,
+      kerosene: kerosene
+    )
   end
 
   def groups(conn, params) do
     group_id = String.to_integer(params["id"])
     groups = ContactGroup.all(conn.assigns.current_user.id)
-    contacts = Contact.all_contacts_for_group(group_id)
+    {contacts, kerosene} = Contact.all_contacts_for_group(
+      group_id,
+      params
+    )
 
-    render conn, :groups, contacts: contacts, groups: groups
+    render(conn, :groups,
+      contacts: contacts,
+      groups: groups,
+      kerosene: kerosene
+    )
   end
 
   def new(conn, _params) do
