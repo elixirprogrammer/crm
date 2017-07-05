@@ -18,7 +18,7 @@
         <%= link to: contact_path(@conn, :edit, @contact), class: "btn btn-circle btn-default btn-xs", title: "Edit" do %>
           <i class="glyphicon glyphicon-edit"></i>
         <% end %>
-        <%= button to: contact_path(@conn, :delete, @contact), method: :delete, class: "btn btn-circle btn-danger btn-xs", title: "Delete" do %>
+        <%= link to: contact_path(@conn, :delete, @contact), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-circle btn-danger btn-xs", title: "Delete" do %>
           <i class="glyphicon glyphicon-remove"></i>
         <% end %>
       </div>

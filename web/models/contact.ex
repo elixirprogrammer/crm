@@ -46,4 +46,12 @@ defmodule Crm.Contact do
     )
     |> Repo.paginate(params)
   end
+
+  def count(user_id) do
+    hd Repo.all(
+      from c in Contact,
+      select: count(c.id),
+      where: c.user_id == ^user_id
+    )
+  end
 end

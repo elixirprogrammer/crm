@@ -21,6 +21,7 @@ defmodule Crm.ContactController do
   end
 
   def show(conn, params) do
+    contacts_count = Contact.count(conn.assigns.current_user.id)
     conn = put_session(conn, :contact_id, String.to_integer(params["id"]))
     {notes, kerosene} = Note.all(params["id"], params)
     groups = ContactGroup.all(conn.assigns.current_user.id)
@@ -32,10 +33,12 @@ defmodule Crm.ContactController do
       contact: contact,
       groups: groups,
       notes: notes,
-      kerosene: kerosene)
+      kerosene: kerosene,
+      contacts_count: contacts_count)
   end
 
   def search(conn, params) do
+    contacts_count = Contact.count(conn.assigns.current_user.id)
     groups = ContactGroup.all(conn.assigns.current_user.id)
     {contacts, kerosene} = Contact.search(
       conn.assigns.current_user.id,
@@ -46,13 +49,15 @@ defmodule Crm.ContactController do
     render(conn, :search,
       contacts: contacts,
       groups: groups,
-      kerosene: kerosene
+      kerosene: kerosene,
+      contacts_count: contacts_count
     )
   end
 
   def groups(conn, params) do
     group_id = String.to_integer(params["id"])
     groups = ContactGroup.all(conn.assigns.current_user.id)
+    contacts_count = Contact.count(conn.assigns.current_user.id)
     {contacts, kerosene} = Contact.all_contacts_for_group(
       group_id,
       params
@@ -61,14 +66,19 @@ defmodule Crm.ContactController do
     render(conn, :groups,
       contacts: contacts,
       groups: groups,
-      kerosene: kerosene
+      kerosene: kerosene,
+      contacts_count: contacts_count
     )
   end
 
   def new(conn, _params) do
+    contacts_count = Contact.count(conn.assigns.current_user.id)
     groups = ContactGroup.all(conn.assigns.current_user.id)
     changeset = Contact.changeset(%Contact{})
-    render conn, :new, changeset: changeset, groups: groups
+    render(conn, :new, 
+      changeset: changeset,
+      groups: groups,
+      contacts_count: contacts_count)
   end
 
   def create(conn, %{"contact" => contact_params}) do
@@ -114,6 +124,14 @@ defmodule Crm.ContactController do
         changeset: changeset,
         groups: groups)
     end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    contact = Repo.get!(Contact, id)
+    Repo.delete!(contact)
+    conn
+    |> put_flash(:info, "Contact #{contact.name} deleted successfully.")
+    |> redirect(to: contact_path(conn, :index))
   end
 
   defp assign_user_id_to_session(conn, _) do
