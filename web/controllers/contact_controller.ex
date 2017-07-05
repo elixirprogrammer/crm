@@ -89,6 +89,33 @@ defmodule Crm.ContactController do
     end
   end
 
+  def edit(conn, %{"id" => id}) do
+    groups = ContactGroup.all(conn.assigns.current_user.id)
+    contact = Repo.get!(Contact, id)
+    changeset = Contact.changeset(contact)
+    render(conn, :edit,
+      contact: contact,
+      changeset: changeset,
+      groups: groups)
+  end
+
+  def update(conn, %{"id" => id, "contact" => contact_params}) do
+    groups = ContactGroup.all(conn.assigns.current_user.id)
+    contact = Repo.get!(Contact, id)
+    changeset = Contact.changeset(contact, contact_params)
+    case Repo.update(changeset) do
+      {:ok, contact} ->
+        conn
+        |> put_flash(:info, "#{contact.name} updated successfully.")
+        |> redirect(to: contact_path(conn, :show, contact))
+      {:error, changeset} ->
+        render(conn, "edit.html",
+        contact: contact,
+        changeset: changeset,
+        groups: groups)
+    end
+  end
+
   defp assign_user_id_to_session(conn, _) do
     if conn.assigns.current_user do
       conn = put_session(conn, :user_id, conn.assigns.current_user.id)
