@@ -5,7 +5,7 @@
       <span class="badge"><%= Crm.Contact.count(@current_user.id) %></span>
     <% end %>
     <div id="group_list">
-    <%= render_many @groups, Crm.ContactView, "_group.html", as: :group, conn: @conn %>
+    <%= render_many @groups, Crm.ContactView, "_new_group.html", as: :group, conn: @conn %>
     </div>
   </div>
 </div><!-- /.col-md-3 -->

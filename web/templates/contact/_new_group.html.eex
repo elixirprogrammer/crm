@@ -1,0 +1,15 @@
+<div class="list-group-item">
+  <span id="group_<%= @group.id %>"><%= @group.name %></span>
+  <span class="badge"><%= length(@group.contacts) %></span>
+  <div class="text-center">
+    <%= link to: contact_path(@conn, :groups, @group), class: "btn btn-circle btn-default btn-xs" do %>
+      <i class="glyphicon glyphicon-eye-open"></i>
+    <% end %>
+    <button data-group="<%= @group.id %>" drab-click="edit_contact_group" class="btn btn-circle btn-default btn-xs">
+      <i class="glyphicon glyphicon-edit"></i>
+    </button>
+    <button data-group="<%= @group.id %>" drab-click="delete_contact_group" class="btn btn-circle btn-danger btn-xs">
+      <i class="glyphicon glyphicon-remove"></i>
+    </button>
+  </div>
+</div>
