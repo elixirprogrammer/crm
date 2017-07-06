@@ -81,7 +81,7 @@ defmodule Crm.ContactController do
 
   def create(conn, %{"contact" => contact_params}) do
     groups = ContactGroup.all(conn.assigns.current_user.id)
-    group = String.to_integer(contact_params["contact_group_id"])
+    group = contact_params["contact_group_id"]
     changeset = Contact.changeset(%Contact{
       contact_group_id: group,
       user_id: conn.assigns.current_user.id

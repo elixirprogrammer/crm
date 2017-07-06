@@ -12,8 +12,11 @@ defmodule Crm.ContactCommander do
 
     case Repo.insert(changeset) do
       {:ok, group} ->
+        group_html = "<a class='list-group-item' href='/groups/#{group.id}'>#{group.name}</a>"
         html = "<option value='#{group.id}'>#{group.name}</option>"
-        socket |> insert(html, prepend: "#group")
+        socket
+        |> insert(group_html, prepend: "#group_list")
+        |> insert(html, prepend: "#group")
         |> update(:val, set: "", on: "#new_group")
       {:error, changeset} ->
         socket |> exec_js("alert('The group name cannot be empty')")

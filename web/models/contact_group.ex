@@ -23,6 +23,7 @@ defmodule Crm.ContactGroup do
     groups = Repo.all(
       from c in ContactGroup,
       where: c.user_id == ^user_id,
+      order_by: c.name,
       preload: :contacts
     )
   end
