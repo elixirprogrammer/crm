@@ -1,4 +1,4 @@
-<div class="list-group-item">
+<div class="list-group-item" id="new_group_list_<%= @group.id %>">
   <span id="group_<%= @group.id %>"><%= @group.name %></span>
   <span class="badge"><%= length(@group.contacts) %></span>
   <div class="text-center">

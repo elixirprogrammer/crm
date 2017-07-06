@@ -92,7 +92,7 @@ defmodule Crm.ContactCommander do
   def delete_contact_note(socket, sender) do
     note_id = socket |> select(data: "noteId", from: this(sender))
     note = Repo.get!(Note, note_id)
-    button = case socket |> alert("Message", "Are you Sure?", buttons: [ok: "YES", cancel: "No"]) do
+    button = case socket |> alert("Message", "Are you Sure?", buttons: [ok: "YES", cancel: "NO"]) do
       { :ok, params } -> delete_note(socket, note)
       { :cancel, _ }  -> "anonymous"
     end
@@ -102,5 +102,20 @@ defmodule Crm.ContactCommander do
     Repo.delete!(note)
     socket
     socket |> delete("#article_note_id_#{note.id}")
+  end
+
+  def delete_contact_group(socket, sender) do
+    group_id = socket |> select(data: "group", from: this(sender))
+    group = Repo.get!(ContactGroup, group_id)
+    button = case socket |> alert("Message", "Are you Sure?", buttons: [ok: "YES", cancel: "NO"]) do
+      { :ok, params } -> delete_group(socket, group)
+      { :cancel, _ }  -> "anonymous"
+    end
+  end
+
+  def delete_group(socket, group) do
+    Repo.delete!(group)
+    socket
+    socket |> delete("#new_group_list_#{group.id}")
   end
 end
