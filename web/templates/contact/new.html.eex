@@ -2,7 +2,7 @@
   <div class="list-group">
     <%= link to: contact_path(@conn, :index), class: active_group?(@conn) do %>
       All Contacts
-      <span class="badge"><%= @contacts_count %></span>
+      <span class="badge"><%= Crm.Contact.count(@current_user.id) %></span>
     <% end %>
     <%= render_many @groups, Crm.ContactView, "_group.html", as: :group, conn: @conn, user_id: @current_user.id %>
   </div>

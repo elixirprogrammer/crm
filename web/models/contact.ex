@@ -21,8 +21,8 @@ defmodule Crm.Contact do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name, :company, :email, :phone, :address])
-    |> validate_required([:name, :email, :phone])
+    |> cast(params, [:name, :company, :email, :phone, :address, :contact_group_id])
+    |> validate_required([:name, :email, :phone, :contact_group_id])
   end
 
   def all(user_id, params) do

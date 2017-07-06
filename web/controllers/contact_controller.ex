@@ -72,17 +72,15 @@ defmodule Crm.ContactController do
   end
 
   def new(conn, _params) do
-    contacts_count = Contact.count(conn.assigns.current_user.id)
     groups = ContactGroup.all(conn.assigns.current_user.id)
     changeset = Contact.changeset(%Contact{})
-    render(conn, :new, 
+    render(conn, :new,
       changeset: changeset,
-      groups: groups,
-      contacts_count: contacts_count)
+      groups: groups)
   end
 
   def create(conn, %{"contact" => contact_params}) do
-    groups = Repo.all(ContactGroup)
+    groups = ContactGroup.all(conn.assigns.current_user.id)
     group = String.to_integer(contact_params["contact_group_id"])
     changeset = Contact.changeset(%Contact{
       contact_group_id: group,
