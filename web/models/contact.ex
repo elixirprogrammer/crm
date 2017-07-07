@@ -34,7 +34,7 @@ defmodule Crm.Contact do
     |> valid_file(params)
   end
 
-  def valid_file(changeset, params) do
+  defp valid_file(changeset, params) do
     extension = ~w(.jpg .jpeg .gif .png)
     message = "Only (.jpg .jpeg .gif .png) files allowed"
     file = params["avatar"].filename
@@ -44,7 +44,7 @@ defmodule Crm.Contact do
     unless Enum.member?(extension, file) do
       changeset = add_error(changeset, :avatar, message)
     end
-    
+
     changeset
   end
 
