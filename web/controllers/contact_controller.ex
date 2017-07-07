@@ -82,7 +82,7 @@ defmodule Crm.ContactController do
   def create(conn, %{"contact" => contact_params}) do
     groups = ContactGroup.all(conn.assigns.current_user.id)
     group = contact_params["contact_group_id"]
-    changeset = Contact.changeset(%Contact{
+    changeset = Contact.file_changeset(%Contact{
       contact_group_id: group,
       user_id: conn.assigns.current_user.id
     }, contact_params)
@@ -111,7 +111,7 @@ defmodule Crm.ContactController do
   def update(conn, %{"id" => id, "contact" => contact_params}) do
     groups = ContactGroup.all(conn.assigns.current_user.id)
     contact = Repo.get!(Contact, id)
-    changeset = Contact.changeset(contact, contact_params)
+    changeset = Contact.file_changeset(contact, contact_params)
     case Repo.update(changeset) do
       {:ok, contact} ->
         conn

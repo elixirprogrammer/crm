@@ -24,8 +24,28 @@ defmodule Crm.Contact do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :company, :email, :phone, :address, :contact_group_id])
-    |> cast_attachments(params, [:avatar])
     |> validate_required([:name, :email, :phone, :contact_group_id])
+  end
+
+  def file_changeset(struct, params \\ %{}) do
+    struct
+    |> changeset(params)
+    |> cast_attachments(params, [:avatar])
+    |> valid_file(params)
+  end
+
+  def valid_file(changeset, params) do
+    extension = ~w(.jpg .jpeg .gif .png)
+    message = "Only (.jpg .jpeg .gif .png) files allowed"
+    file = params["avatar"].filename
+    |> Path.extname
+    |> String.downcase
+
+    unless Enum.member?(extension, file) do
+      changeset = add_error(changeset, :avatar, message)
+    end
+    
+    changeset
   end
 
   def all(user_id, params) do
