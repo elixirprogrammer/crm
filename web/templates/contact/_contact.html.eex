@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-6">
   <div class="thumbnail">
     <%= link to: contact_path(@conn, :show, @contact) do %>
       <%= if @contact.avatar != nil do %>
@@ -15,7 +15,6 @@
       <strong><%= @contact.company %></strong><br>
       <h6><%= @contact.email %></h6>
       <h6><%= @contact.phone %></h6>
-      <h6><%= @contact.address %></h6>
       <div class="text-center">
         <%= link to: contact_path(@conn, :show, @contact), class: "btn btn-circle btn-default btn-xs", title: "View" do %>
           <i class="glyphicon glyphicon-eye-open"></i>
