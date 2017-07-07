@@ -89,6 +89,7 @@ defmodule Crm.ContactController do
 
     case Repo.insert(changeset) do
       {:ok, contact} ->
+        Crm.Avatar.store({contact_params["avatar"], contact})
         conn
         |> put_flash(:info, "#{contact.name} created!")
         |> redirect(to: contact_path(conn, :index))
@@ -126,7 +127,9 @@ defmodule Crm.ContactController do
 
   def delete(conn, %{"id" => id}) do
     contact = Repo.get!(Contact, id)
+    path = Crm.Avatar.url({contact.avatar, contact}, :thumb)
     Repo.delete!(contact)
+    :ok = Crm.Avatar.delete({path, contact})
     conn
     |> put_flash(:info, "Contact #{contact.name} deleted successfully.")
     |> redirect(to: contact_path(conn, :index))

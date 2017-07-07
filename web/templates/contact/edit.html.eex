@@ -10,5 +10,6 @@
 
 <%= render "_form.html", changeset: @changeset,
                          action: contact_path(@conn, :update, @contact),
+                         contact: @contact,
                          groups: @groups,
                          conn: @conn %>

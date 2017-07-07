@@ -17,6 +17,19 @@ defmodule Crm.ContactView do
     |> md5()
   end
 
+  def avatar_for(contact) do
+    src = Crm.Avatar.url({contact.avatar, contact}, :thumb)
+    img_tag(src, class: "img-circle", alt: contact.name)
+  end
+
+  def avatar(contact) do
+    if contact.avatar != nil do
+      avatar_for(contact)
+    else
+      gravatar_for(contact.name, contact.email, 100)
+    end
+  end
+
   def active_group?(conn, group_id) do
     group = Integer.to_string(group_id)
     if conn.request_path == contact_path(conn, :groups, group) do

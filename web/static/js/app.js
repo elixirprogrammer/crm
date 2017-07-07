@@ -20,6 +20,8 @@ $("#add-new-group").hide();
     });
     return false;
 });
+
+
 // Import local files
 //
 // Local files can be imported directly using relative

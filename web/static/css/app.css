@@ -35,3 +35,7 @@ body {
 form.link {
 	display: inline;
 }
+
+.help-block {
+	color: #a94442;
+}

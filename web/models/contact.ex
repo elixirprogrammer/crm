@@ -1,5 +1,6 @@
 defmodule Crm.Contact do
   use Crm.Web, :model
+  use Arc.Ecto.Schema
 
   alias Crm.{Repo, Contact}
 
@@ -9,6 +10,7 @@ defmodule Crm.Contact do
     field :email, :string
     field :phone, :string
     field :address, :string
+    field :avatar, Crm.Avatar.Type
     belongs_to :user, Crm.User
     belongs_to :contact_group, Crm.ContactGroup
     has_many :notes, Crm.Note
@@ -22,6 +24,7 @@ defmodule Crm.Contact do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:name, :company, :email, :phone, :address, :contact_group_id])
+    |> cast_attachments(params, [:avatar])
     |> validate_required([:name, :email, :phone, :contact_group_id])
   end
 

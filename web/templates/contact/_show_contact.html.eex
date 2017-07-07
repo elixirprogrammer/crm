@@ -1,6 +1,8 @@
 <div class="col-md-4">
   <div class="thumbnail">
-    <%= link to: contact_path(@conn, :show, @contact) do %>
+    <%= if @contact.avatar != nil do %>
+      <%= avatar_for(@contact) %>
+    <% else %>
       <%= gravatar_for(@contact.name, @contact.email, 100) %>
     <% end %>
     <div class="caption text-center">

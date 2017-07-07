@@ -9,8 +9,6 @@
     </div>
   </div><!-- /.col-md-3 -->
 
-  <%= render "_show_contact.html", conn: @conn, contact: @contact %>
-
   <div class="col-md-5">
     <div id="contact-note-list" class="list-group">
       <%= render_many @notes, Crm.ContactView, "_note.html", as: :note %>
@@ -19,4 +17,6 @@
         <%= paginate @conn, @kerosene %>
     </div>
   </div><!-- /.col-md-5 -->
+
+  <%= render "_show_contact.html", conn: @conn, contact: @contact %>
 </div>
