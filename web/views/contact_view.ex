@@ -46,4 +46,16 @@ defmodule Crm.ContactView do
       "list-group-item"
     end
   end
+
+  def multiple_cards(contacts) do
+    if length(contacts) > 2 do
+      "card"
+    end
+  end
+
+  def pack?(contacts) do
+    if length(contacts) > 2 do
+      "pack"
+    end
+  end
 end

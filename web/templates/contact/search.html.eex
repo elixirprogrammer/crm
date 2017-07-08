@@ -10,11 +10,11 @@
   </div><!-- /.col-md-3 -->
 
   <div class="col-md-9">
-    <div class="row">
+    <div class="row <%= pack?(@contacts) %>">
       <%= if @contacts == [] do %>
         <h1>Nothing was found with that name</h1>
       <% else %>
-        <%= render_many @contacts, Crm.ContactView, "_contact.html", conn: @conn%>
+        <%= render_many @contacts, Crm.ContactView, "_contact.html", conn: @conn, contacts: @contacts %>
     </div>
 
     <div class="text-center">

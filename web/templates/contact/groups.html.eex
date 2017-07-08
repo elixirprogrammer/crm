@@ -10,8 +10,8 @@
   </div><!-- /.col-md-3 -->
 
   <div class="col-md-9">
-    <div class="row">
-      <%= render_many @contacts, Crm.ContactView, "_contact.html", conn: @conn%>
+    <div class="row <%= pack?(@contacts) %>">
+      <%= render_many @contacts, Crm.ContactView, "_contact.html", conn: @conn, contacts: @contacts %>
     </div>
 
     <div class="text-center">

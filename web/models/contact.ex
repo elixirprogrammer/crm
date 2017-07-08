@@ -35,22 +35,26 @@ defmodule Crm.Contact do
   end
 
   defp valid_file(changeset, params) do
-    extension = ~w(.jpg .jpeg .gif .png)
-    message = "Only (.jpg .jpeg .gif .png) files allowed"
-    file = params["avatar"].filename
-    |> Path.extname
-    |> String.downcase
+    if Map.has_key?(params, "avatar") do
+      extension = ~w(.jpg .jpeg .gif .png)
+      message = "Only (.jpg .jpeg .gif .png) files allowed"
+      file = params["avatar"].filename
+      |> Path.extname
+      |> String.downcase
 
-    unless Enum.member?(extension, file) do
-      changeset = add_error(changeset, :avatar, message)
+      unless Enum.member?(extension, file) do
+        changeset = add_error(changeset, :avatar, message)
+      end
+      changeset
+    else
+      changeset
     end
-
-    changeset
   end
 
   def all(user_id, params) do
     Contact
     |> where(user_id: ^user_id)
+    |> order_by(:name)
     |> preload(:contact_group)
     |> Repo.paginate(params)
   end
@@ -58,6 +62,7 @@ defmodule Crm.Contact do
   def all_contacts_for_group(group_id, params) do
     Contact
     |> where(contact_group_id: ^group_id)
+    |> order_by(:name)
     |> preload(:contact_group)
     |> Repo.paginate(params)
   end
@@ -65,6 +70,7 @@ defmodule Crm.Contact do
   def search(user_id, search_params, params) do
     from(c in Contact,
       where: c.user_id == ^user_id and ilike(c.name, ^"%#{search_params}%"),
+      order_by: c.name,
       preload: :contact_group
     )
     |> Repo.paginate(params)

@@ -1,4 +1,4 @@
-<div class="col-md-4 col-xs-12 card">
+<div class="col-md-4 col-xs-12 <%= multiple_cards(@contacts) %>">
   <div class="thumbnail">
     <%= link to: contact_path(@conn, :show, @contact) do %>
       <%= if @contact.avatar != nil do %>
