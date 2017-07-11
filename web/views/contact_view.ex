@@ -48,13 +48,13 @@ defmodule Crm.ContactView do
   end
 
   def multiple_cards(contacts) do
-    if length(contacts) > 2 do
+    if length(contacts) > 3 do
       "card"
     end
   end
 
   def pack?(contacts) do
-    if length(contacts) > 2 do
+    if length(contacts) > 3 do
       "pack"
     end
   end
