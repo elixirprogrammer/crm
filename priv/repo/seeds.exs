@@ -12,10 +12,10 @@
 alias Crm.{Repo, User, Contact, ContactGroup, Note}
 
 Repo.delete_all User
-(1..10) |> Enum.each(fn _ ->
+(1..10) |> Enum.each(fn n ->
   User.reg_changeset(%User{}, %{
                         name: Faker.Name.title,
-                        username: Faker.Internet.user_name,
+                        username: "usertest#{n}",
                         password: "password123",
                         password_confirmation: "password123"})
   |> Repo.insert!()
