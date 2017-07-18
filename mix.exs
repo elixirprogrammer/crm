@@ -19,7 +19,7 @@ defmodule Crm.Mixfile do
   def application do
     [mod: {Crm, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :hasher, :kerosene, :arc, :arc_ecto]]
+                    :phoenix_ecto, :postgrex, :hasher, :kerosene, :arc, :arc_ecto, :faker]]
   end
 
   # Specifies which paths to compile per environment.
@@ -42,7 +42,8 @@ defmodule Crm.Mixfile do
      {:drab, "~> 0.3"},
      {:kerosene, "~> 0.7.0"},
      {:arc, "~> 0.8.0"},
-     {:arc_ecto, "~> 0.7.0"}]
+     {:arc_ecto, "~> 0.7.0"},
+     {:faker, "~> 0.8"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
