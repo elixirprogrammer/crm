@@ -1,5 +1,6 @@
 <div class="col-md-3">
   <div class="list-group">
+    <%= link "My Groups", to: contact_group_path(@conn, :index), class: "list-group-item" %>
     <%= link to: contact_path(@conn, :index), class: active_group?(@conn) do %>
       All Contacts
       <span class="badge"><%= length(@groups) %></span>

@@ -1,0 +1,22 @@
+<div class="container">
+  <h3>My Groups <small class="pull-right"><%= length(@groups) %> total</small></h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+    <%= for group <- @groups do %>
+        <tr>
+          <td>
+            <%= link group.name, to: contact_path(@conn, :groups, group) %>
+          </td>
+          <td><%= link "Delete", to: contact_group_path(@conn, :delete, group), method: :delete, data: [confirm: "Are you sure?"], class: "text-danger" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+</div>

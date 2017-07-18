@@ -28,7 +28,13 @@ defmodule Crm.Router do
     resources "/contacts", ContactController
     resources "/users", UserController, only: [:edit, :update]
     get "/groups/:id", ContactController, :groups
-    get "/stories/search", ContactController, :search
+    get "/search/contacts", ContactController, :search
+  end
+
+  scope "/manage", Crm do
+    pipe_through [:browser, :authenticate_user]
+
+    resources "/groups", ContactGroupController, only: [:index, :delete]
   end
 
   # Other scopes may use custom stacks.
