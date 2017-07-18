@@ -27,14 +27,20 @@ defmodule Crm.ContactController do
     groups = ContactGroup.all(conn.assigns.current_user.id)
     contact = Repo.get!(
       Contact, params["id"]
-    ) |> Repo.preload(:contact_group)
+    ) |> Repo.preload([:contact_group, :user])
 
-    render(conn, :show,
-      contact: contact,
-      groups: groups,
-      notes: notes,
-      kerosene: kerosene,
-      contacts_count: contacts_count)
+    if contact.user !== conn.assigns.current_user do
+      conn
+      |> put_flash(:error, "You are not the owner of that contact.")
+      |> redirect(to: "/")
+    else
+      render(conn, :show,
+        contact: contact,
+        groups: groups,
+        notes: notes,
+        kerosene: kerosene,
+        contacts_count: contacts_count)
+    end
   end
 
   def search(conn, params) do
@@ -103,42 +109,62 @@ defmodule Crm.ContactController do
 
   def edit(conn, %{"id" => id}) do
     groups = ContactGroup.all(conn.assigns.current_user.id)
-    contact = Repo.get!(Contact, id)
+    contact = Repo.get!(Contact, id) |> Repo.preload(:user)
     changeset = Contact.changeset(contact)
-    render(conn, :edit,
-      contact: contact,
-      changeset: changeset,
-      groups: groups)
-  end
 
-  def update(conn, %{"id" => id, "contact" => contact_params}) do
-    groups = ContactGroup.all(conn.assigns.current_user.id)
-    contact = Repo.get!(Contact, id)
-    changeset = Contact.file_changeset(contact, contact_params)
-    case Repo.update(changeset) do
-      {:ok, contact} ->
-        conn
-        |> put_flash(:info, "#{contact.name} updated successfully.")
-        |> redirect(to: contact_path(conn, :show, contact))
-      {:error, changeset} ->
-        render(conn, "edit.html",
+    if contact.user !== conn.assigns.current_user do
+      conn
+      |> put_flash(:error, "You are not the owner of that contact.")
+      |> redirect(to: "/")
+    else
+      render(conn, :edit,
         contact: contact,
         changeset: changeset,
         groups: groups)
     end
   end
 
-  def delete(conn, %{"id" => id}) do
-    contact = Repo.get!(Contact, id)
-    Repo.delete!(contact)
-    unless contact.avatar == nil do
-      path = Crm.Avatar.url({contact.avatar, contact}, :thumb)
-      :ok = Crm.Avatar.delete({path, contact})
+  def update(conn, %{"id" => id, "contact" => contact_params}) do
+    groups = ContactGroup.all(conn.assigns.current_user.id)
+    contact = Repo.get!(Contact, id) |> Repo.preload(:user)
+    changeset = Contact.file_changeset(contact, contact_params)
+
+    if contact.user !== conn.assigns.current_user do
+      conn
+      |> put_flash(:error, "You are not the owner of that contact.")
+      |> redirect(to: "/")
+    else
+      case Repo.update(changeset) do
+        {:ok, contact} ->
+          conn
+          |> put_flash(:info, "#{contact.name} updated successfully.")
+          |> redirect(to: contact_path(conn, :show, contact))
+        {:error, changeset} ->
+          render(conn, "edit.html",
+          contact: contact,
+          changeset: changeset,
+          groups: groups)
+      end
     end
-    
-    conn
-    |> put_flash(:info, "Contact #{contact.name} deleted successfully.")
-    |> redirect(to: contact_path(conn, :index))
+  end
+
+  def delete(conn, %{"id" => id}) do
+    contact = Repo.get!(Contact, id) |> Repo.preload(:user)
+    if contact.user !== conn.assigns.current_user do
+      conn
+      |> put_flash(:error, "You are not the owner of that contact.")
+      |> redirect(to: "/")
+    else
+      Repo.delete!(contact)
+      unless contact.avatar == nil do
+        path = Crm.Avatar.url({contact.avatar, contact}, :thumb)
+        :ok = Crm.Avatar.delete({path, contact})
+      end
+
+      conn
+      |> put_flash(:info, "Contact #{contact.name} deleted successfully.")
+      |> redirect(to: contact_path(conn, :index))
+    end
   end
 
   defp assign_user_id_to_session(conn, _) do
