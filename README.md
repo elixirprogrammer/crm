@@ -6,7 +6,7 @@
 
 ### [_See Crm on Heroku here_](https://elixir-phoenix-crm.herokuapp.com/ "Crm")
 
-You are encouraged to create an account, but if you want to get a feel of Fmylife first, you may log in with any of the following users (all having a password of `password123`):
+You are encouraged to create an account, but if you want to get a feel of Crm first, you may log in with any of the following users (all having a password of `password123`):
 
 - usertest1
 - usertest2
